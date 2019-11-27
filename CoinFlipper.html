@@ -51,8 +51,7 @@ console.log(flip);
 // drawHeads function; 3 arguments xLoc, yLoc, color
 function drawHeads(x, y, color)
 {
-	c.fillStyle = "white";
-	c.fillRect(0, 0, W, H);
+	c.clearRect(0, 0, W, H);
 	// draw a coin - heads side
 	// first draw the circle - radius 100
 	c.beginPath();
@@ -71,8 +70,7 @@ function drawTails(x, y, color)
 {
 	// draw a coin - tails side
 	// first draw the circle - radius 100
-	c.fillStyle = "white";
-	c.fillRect(0, 0, W, H);
+	c.clearRect(0, 0, W, H);
 	c.beginPath();
 	c.fillStyle = color;
 	c.arc(x, y, 100, 0, 2*Math.PI, false);
