@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Random Numbers</title>
+<style>
+body {
+	margin: 0; padding: 0; overflow: hidden;
+}
+canvas {
+	border: 2px solid black;
+}
+</style>
+</head>
+
+<body>
+<canvas id="myCanvas" width=""></canvas>
+<script>
+var canvas= document.getElementById("myCanvas");
+var c = canvas.getContext('2d');
+
+// Set canvas width and height to 
+// window width and height
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+// variables to hold mouse position
+var mouseX;
+var mouseY;
+// Event Listener
+canvas.addEventListener("click", createRandom);
+// The drawSquare function
+
+function drawSquare(x, y, side, color)
+{
+	// edit this function so it only draws
+	// the outline of a square
+	c.beginPath();
+	c.rect(x, y, side, side);
+	c.strokeStyle = color;
+	c.lineWidth = Math.floor(Math.random()*10) + 1;
+	c.stroke();
+	c.closePath();
+}
+
+function createRandom(event)
+{
+	// generate random number:  0 - 100
+		var num = Math.floor(Math.random()*101);
+	// Output random num to console
+		console.log("Random Num: " + num);
+	// Capture mouse event
+		mouseX = event.x;
+		mouseY = event.y;
+	// Output mouseX and mouseY to console
+		console.log(mouseX + ":" + mouseY);
+	// set variable side
+		var side = Math.floor(Math.random()*51) + 50;
+	// Draw a square at the coordinates: mouseX, mouseY
+		drawSquare(mouseX, mouseY, side, getRandomColor());
+	// print random number to canvas
+		c.beginPath();
+		c.fillStyle = getRandomColor();
+		c.font = "18px Arial";
+		c.fillText(num, mouseX + (side / 4), mouseY + (side / 2), side / 2);
+		c.closePath();
+	// draw coordinates to canvas
+		c.fillText(mouseX + ":" + mouseY,  mouseX + (side / 4), mouseY + (side / 2) + 15, side / 2);
+		
+}
+function getRandomColor()
+{
+	var ranColor = 
+	'rgb(' + Math.floor(Math.random() * 256) +
+	','    + Math.floor(Math.random() * 256) +
+	','    + Math.floor(Math.random() * 256) + ')';
+	
+	return ranColor;
+	
+	}
+</script>
+</body>
+</html>
