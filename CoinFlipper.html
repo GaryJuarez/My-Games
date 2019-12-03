@@ -19,19 +19,22 @@ canvas {
 <br>
 <br>
 <button type="button" onClick="flipCoin()">Flip a Coin, or don't.</button>
-
+<p id="stats">Stats go here...</p>
 <script>
 // canvas variables
 	var canvas= document.getElementById("myCanvas");
 	var c = canvas.getContext('2d');
-
 // variables W and H = width and height of canvas
 	var W = canvas.width;
 	var H = canvas.height;
+	var numFlips = 0;
+	var numHeads = 0;
+	var numTails = 0;
 // The flipCoin function
 function flipCoin()
 {
-	
+	numFlips++;
+	console.log("Flips: " + numFlips)
 	// generate random number:  0 - 1
 	// 0 = heads;  1 = tails;
 var flip = Math.floor(Math.random()*2);
@@ -46,12 +49,15 @@ console.log(flip);
 	{
 		drawTails(400, 200, "silver");
 	}
+	showStats();
 }
 
 // drawHeads function; 3 arguments xLoc, yLoc, color
 function drawHeads(x, y, color)
 {
-	c.clearRect(0, 0, W, H);
+	numHeads++;
+	console.log("Heads: " + numHeads);
+	c.clearRect(0, 0, W, H)
 	// draw a coin - heads side
 	// first draw the circle - radius 100
 	c.beginPath();
@@ -60,17 +66,20 @@ function drawHeads(x, y, color)
 	c.fill();
 	// draw a black "H" on the coin
 	c.fillStyle = "black";
+	c.font = "28px Arial";
 	c.fillText("H", x, y,);
 	c.closePath();
-	
+		
 }
 
 // drawTails function; 3 arguments xLoc, yLoc, color
 function drawTails(x, y, color)
 {
+	numTails++;
+	console.log("Tails: " + numTails);
 	// draw a coin - tails side
 	// first draw the circle - radius 100
-	c.clearRect(0, 0, W, H);
+	c.clearRect(0, 0, W, H)
 	c.beginPath();
 	c.fillStyle = color;
 	c.arc(x, y, 100, 0, 2*Math.PI, false);
@@ -83,7 +92,12 @@ function drawTails(x, y, color)
 
 	
 }
-
+function showStats()
+{
+	var p = document.getElementById("stats")
+	var message = "Total flips = " + numFlips + " | Heads = " + numHeads + " | Tails = " + numTails;
+	p.innerHTML = message;	
+}
 </script>
 </body>
 </html>
