@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Simple Guess a Number Game</title>
+</head>
+
+<body>
+<h1>Simple Guess A Number Game</h1>
+<p>The computer has chosen a number between 1 and 5. See if you can guess it. You only get one chance...</p>
+<p>Click the button below to begin</p>
+<button type="button" onClick="playGame()">Click Here to Play</button>
+<!-- Add an HTML button here -->
+<!-- The button must call the playGame function -->
+
+
+<script type="text/javascript">
+function playGame() 
+{
+	// random number between 1 and 5; store in variable: secretNum
+	var secretNum = Math.floor(Math.random()*5 + 1);
+	// to test, log the secretNum to the console
+	console.log(secretNum);
+	// prompt user for guess; store in variable guess
+	var guess = prompt("Enter a Number");
+	
+	// use parseInt to turn guess into an Integer
+	guess = parseInt(guess);
+	// if statements: check if the guess is too high or...
+	// to low or if they guessed the secretNum
+	// Use alert window to tell the user the outcome.
+	
+	
+	if (isNaN(guess) === true)
+	{
+		window.alert("Try again. That is not a number.");
+	}
+	else if (guess < 1 || guess > 5)
+	{
+		window.alert("You have to guess between 1-5");	
+	}
+	else
+	{
+		if (guess === secretNum)
+		{
+			window.alert("You Got It Right!");
+			document.bgColor = "Green";
+		}
+		else if (guess < secretNum)
+		{
+			window.alert("You guessed to low!");
+
+		}
+		else if (guess > secretNum)
+		{
+			window.alert("You guessed to high!");
+			document.bgColor = "Red";
+		}
+		
+	
+		var diff = Math.abs(secretNum - guess);
+		console.log("The diff is: " + diff);
+			
+		if (diff === 0) 
+		{
+			window.alert("You Win!");
+			
+		}
+		else if (diff < 3)
+		{
+			window.alert("You were close");
+			document.bgColor = "Yellow";
+		}
+		else if (diff > 2)
+		{
+			window.alert("You were way off!");	
+			document.bgColor = "Red";
+		}
+		
+	}
+}
+
+</script>
+</body>
+</html>
