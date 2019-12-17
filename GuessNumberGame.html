@@ -19,7 +19,7 @@ function playGame()
 	// to test, log the secretNum to the console
 	console.log(secretNum)
 	// create a counter variable; initialize to one
-	var counter = 1;
+	var counter = 0;
 	// while counter is less than or equal to 8
 	while (counter <= 8)
 	   { 
@@ -31,7 +31,7 @@ function playGame()
 			if (guess === secretNum)
 			{
 				window.alert("You guessed right!");	
-				
+				counter++;
 				break;
 			}
 			else if (guess < secretNum)
@@ -56,6 +56,7 @@ function playGame()
 			{
 				window.alert("That is not a number, try again.");
 			}
+		   console.log("Guesses: " + counter);
 			// increment the counter inside the loop
 	   }
 	if (counter <= 2)
