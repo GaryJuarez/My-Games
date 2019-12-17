@@ -34,13 +34,13 @@ function playGame()
 				counter++;
 				break;
 			}
-			else if (guess < secretNum)
+			else if (guess < secretNum && guess > 0)
 			{
 				window.alert("You guessed two low! Try again.")	;
 				counter++;
 				
 			}
-			else if (guess > secretNum)
+			else if (guess > secretNum && guess < 51)
 			{
 				window.alert("You guessed to high! Try again");
 				counter++;	
@@ -52,11 +52,19 @@ function playGame()
 				document.bgColor = "Red";
 				break;
 			}
+			if (guess <= 0)
+			{
+				window.alert("Guess a number between 1-50");
+			} 
+			if (guess > 50)
+			{
+				window.alert("Guess a number between 1-50");
+			} 
 			if (isNaN(guess) === true)
 			{
 				window.alert("That is not a number, try again.");
 			}
-		   console.log("Guesses: " + counter);
+			console.log(counter);
 			// increment the counter inside the loop
 	   }
 	if (counter <= 2)
