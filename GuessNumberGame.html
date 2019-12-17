@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Better Guess a Number Game</title>
+</head>
+
+<body>
+<h1>Better Guess A Number Game</h1>
+<p>The computer has chosen a number between 1 and 50. See if you can guess it</p>
+<p>Click the button below to begin</p>
+<!-- Add an HTML button here -->
+<button type="button" onClick="playGame()">Click Here to Play!</button>
+<script type="text/javascript">
+function playGame() 
+{
+	// random number between 1 and 50; store in variable: secretNum
+	var secretNum = Math.floor(Math.random()*51)
+	// to test, log the secretNum to the console
+	console.log(secretNum)
+	// create a counter variable; initialize to one
+	var counter = 1;
+	// while counter is less than or equal to 8
+	while (counter <= 8)
+	   { 
+			// prompt user for guess; store in variable guess
+			var guess = window.prompt("Guess a number between 1-50.");
+			// use parseInt to turn guess into an Integer
+			guess = parseInt(guess);
+			// if statements
+			if (guess === secretNum)
+			{
+				window.alert("You guessed right!");	
+				
+				break;
+			}
+			else if (guess < secretNum)
+			{
+				window.alert("You guessed two low! Try again.")	;
+				counter++;
+				
+			}
+			else if (guess > secretNum)
+			{
+				window.alert("You guessed to high! Try again");
+				counter++;	
+			}
+			if (counter > 8)
+			{
+				window.alert("You are out of guesses.");
+				window.alert("You lose.");
+				document.bgColor = "Red";
+				break;
+			}
+			if (isNaN(guess) === true)
+			{
+				window.alert("That is not a number, try again.");
+			}
+			// increment the counter inside the loop
+	   }
+	if (counter <= 2)
+	{
+		window.alert("AMAZING! It took you " + counter + " guesses!");
+		document.bgColor = "Green";
+	}
+	else if (counter === 4 || counter === 3)
+	{
+		window.alert("Good job. It took you " + counter + " guesses.");	
+		document.bgColor = "Green";
+	}
+	else if (counter === 5 || counter === 6)
+	{
+		window.alert("You did ok. It took you " + counter + " guesses.");	
+		document.bgColor = "yellow";
+	}
+	else if (counter === 7 || counter === 8)
+	{
+		window.alert("Ehh. It took you " + counter + " guesses.");	
+		document.bgColor = "yellow";
+	}
+}
+</script>
+</body>
+</html>
