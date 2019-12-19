@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Simple Animation</title>
+<style>
+body  {margin: 0; padding: 0; overflow: hidden;}
+</style>
+</head>
+
+<body>
+<canvas id="myCanvas"></canvas>
+<script>
+var canvas = document.getElementById("myCanvas");
+var c = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+var w = canvas.width;
+var h = canvas.height;
+// variables to hold xPos and yPos
+var xPos = 0;
+var yPos = 0;
+// velocity variables
+var xSpeed = 5;
+var ySpeed = 5;
+
+// drawSquare function
+function drawSquare(x, y, side, color)
+{
+	c.beginPath();
+	c.fillStyle = color;	
+	c.rect(x, y, side, side);
+	c.fill();
+	c.closePath();
+}
+
+// init function
+function init()
+{
+	xPos = w / 2;
+	yPos = h / 2;
+	draw()
+}
+// draw function
+function draw()
+{
+	c.clearRect(0, 0, w, h);
+	drawSquare(xPos, yPos, 10, "Red");
+	update();
+	requestAnimationFrame(draw);
+}
+// update function
+function update()
+{
+	xPos = xPos + xSpeed;
+	yPos = yPos + ySpeed;	
+	if (yPos + 10 > h)
+	{
+		ySpeed = -ySpeed;	
+	}
+	else if (yPos + 10 < h)
+	{
+		ySpeed = +ySpeed;
+	}
+	
+	if (xPos + 10 > w)
+	{
+		xSpeed = -xSpeed;	
+	}
+	else if (xPos + 10 < w)
+	{
+		xSpeed = +xSpeed;	
+	}
+}
+// call the init() function in global scope
+init()
+</script>
+</body>
+</html>
