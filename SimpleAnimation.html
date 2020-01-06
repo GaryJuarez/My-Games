@@ -21,10 +21,17 @@ var h = canvas.height;
 // variables to hold xPos and yPos
 var xPos = 0;
 var yPos = 0;
+//circle
+var xPosC = 0;
+var yPosC = 0;
 // velocity variables
 var xSpeed = 5;
 var ySpeed = 5;
-
+//circle speed
+var xSpeedC = -6;
+var ySpeedC = -6;
+//bounces for everything
+var bounce = 0;
 // drawSquare function
 function drawSquare(x, y, side, color)
 {
@@ -34,12 +41,21 @@ function drawSquare(x, y, side, color)
 	c.fill();
 	c.closePath();
 }
-
+ function drawCircle(x, y, size, color)
+ {
+	c.beginPath();
+	c.fillStyle = color;	
+	c.arc(x, y, size, 0, 2 * Math.PI, false);
+	c.fill();
+	c.closePath();
+ }
 // init function
 function init()
 {
 	xPos = w / 2;
 	yPos = h / 2;
+	xPosC = w / 2;
+	yPosC = h / 2;
 	draw()
 }
 // draw function
@@ -47,7 +63,11 @@ function draw()
 {
 	c.clearRect(0, 0, w, h);
 	drawSquare(xPos, yPos, 10, "Red");
+	drawCircle(xPosC, yPosC, 10, "Blue");
 	update();
+	c.font = "36px Arial";
+	c.textAlign = "center";
+	c.fillText("Bounces: " + bounce, w/2, h/2);
 	requestAnimationFrame(draw);
 }
 // update function
@@ -55,23 +75,61 @@ function update()
 {
 	xPos = xPos + xSpeed;
 	yPos = yPos + ySpeed;	
+							//square
 	if (yPos + 10 > h)
 	{
 		ySpeed = -ySpeed;	
+		bounce++;
+		console.log(bounce);
 	}
-	else if (yPos + 10 < h)
+	else if (yPos < 0)
 	{
-		ySpeed = +ySpeed;
+		ySpeed = -ySpeed;
+		bounce++;
+		console.log(bounce);
 	}
 	
 	if (xPos + 10 > w)
 	{
-		xSpeed = -xSpeed;	
+		xSpeed = -xSpeed;
+		bounce++;
+		console.log(bounce);
 	}
-	else if (xPos + 10 < w)
+	else if (xPos < 0)
 	{
-		xSpeed = +xSpeed;	
+		xSpeed = -xSpeed;	
+		bounce++;
+		console.log(bounce);
 	}
+							//Circle
+	xPosC = xPosC + xSpeedC;
+	yPosC = yPosC + ySpeedC;	
+	if (yPosC + 10 > h)
+	{
+		ySpeedC = -ySpeedC;	
+		bounce++;
+		console.log(bounce);
+	}
+	else if (yPosC < 0)
+	{
+		ySpeedC = -ySpeedC;
+		bounce++;
+		console.log(bounce);
+	}
+	
+	if (xPosC + 10 > w)
+	{
+		xSpeedC = -xSpeedC;
+		bounce++;
+		console.log(bounce);
+	}
+	else if (xPosC < 0)
+	{
+		xSpeedC = -xSpeedC;	
+		bounce++;
+		console.log(bounce);
+	}
+	
 }
 // call the init() function in global scope
 init()
