@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Simple Animation by Ms D</title>
+<style>
+body  {margin: 0; padding: 0; overflow: hidden;}
+</style>
+</head>
+
+<body>
+<canvas id="myCanvas"></canvas>
+<script>
+var canvas = document.getElementById("myCanvas");
+var c = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+var w = canvas.width;
+var h = canvas.height;
+    
+// position of ball
+var xPos = 0;
+var yPos = 0;
+    
+// velocity variables
+var xSpeed = 5;
+var ySpeed = 5;
+
+// number of bounces
+var score = 0;
+
+//paddle position
+var paddleX = 0;
+var paddleY = h - 30;
+ 
+
+canvas.addEventListener("mousemove", movePaddle);  
+
+function drawBall(x, y, radius, color)
+{
+	// draw a ball
+	c.beginPath();
+	c.fillStyle = color;
+	c.arc(x, y, radius, 2 * Math.PI, false);
+	c.fill();
+	c.closePath();
+}
+
+function drawPaddle(x, y, width, height, color)
+{
+	c.beginPath();
+	c.fillStyle = color;
+	c.fillRect(x, y, width, height);
+	c.closePath();
+}
+
+function movePaddle(event)
+{
+	paddleX = event.x;
+}
+
+function gameOver()
+{
+	c.font = "50px Arial";
+	c.fillStyle = "black";
+	c.textAlign = "center";
+	c.clearRect(0, 0, w, h);
+	c.fillText("Game Over", w / 2, h / 2);	
+}
+
+function init()
+{
+	// place ball in middle of canvas
+	xPos = w / 2;
+	yPos = h / 2;
+	// call the draw function
+	draw();
+}
+
+// Define the global draw function
+function draw()
+{
+	// clear the canvas
+	c.clearRect(0, 0, w, h);
+	
+	// call the drawBall() function
+	drawBall(xPos, yPos, 10, "Red");
+	
+	// call the drawPaddle() function
+	drawPaddle(paddleX, paddleY, 150, 15, "black");
+	
+	// draw text on canvas
+	c.font = "50px Arial";
+	c.fillStyle = "black";
+	c.fillText("Score:  " + score, 10, 50);
+	
+	// update the location of square
+	update();
+	// Game loop
+	requestAnimationFrame(draw);
+}
+
+function update()
+{
+	// Make the square move
+	xPos = xPos + xSpeed;
+	yPos = yPos + ySpeed;
+	
+	// bounce off the bottom wall
+	if (yPos + 10 > h)
+	{
+		gameOver();
+		
+		
+	}
+	// bounce off the top wall
+	else if (yPos < 0)
+	{
+		ySpeed = -ySpeed;
+	
+		
+	}
+	// bounce off the right wall
+	if (xPos + 10 > w)
+	{
+		xSpeed = -xSpeed;
+	
+		
+	}
+	// bounce off the left wall
+	else if (xPos < 0)
+	{
+		xSpeed = -xSpeed;
+		
+	}
+	
+	// collision detection goes here....
+	if ( xPos + 10 > paddleX && xPos - 10 < paddleX + 150 && yPos + 10 > paddleY && yPos - 10 < paddleY + 15)
+	{
+		ySpeed = -ySpeed;
+		score++;
+	}
+}
+
+init();
+</script>
+</body>
+</html>
