@@ -37,7 +37,7 @@ var paddleY = h - 30;
 var rColor = "red";
 var ballColor = "red";
 
-var paddleW = 150;
+var paddleW = 250;
 canvas.addEventListener("mousemove", movePaddle);  
 
 function drawBall(x, y, radius, color)
@@ -198,7 +198,7 @@ function update()
 		}
 		if (score % 10 === 0)
 		{
-			paddleW = paddleW - 15;
+			paddleW = paddleW - 25;
 		}
 		ballColor = randomColor();
 		
