@@ -24,8 +24,8 @@ var xPos = 0;
 var yPos = 0;
     
 // velocity variables
-var xSpeed = 5;
-var ySpeed = 5;
+var xSpeed = 8;
+var ySpeed = 8;
 
 // number of bounces
 var score = 0;
@@ -33,8 +33,11 @@ var score = 0;
 //paddle position
 var paddleX = 0;
 var paddleY = h - 30;
- 
+//color
+var rColor = "red";
+var ballColor = "red";
 
+var paddleW = 150;
 canvas.addEventListener("mousemove", movePaddle);  
 
 function drawBall(x, y, radius, color)
@@ -69,11 +72,23 @@ function gameOver()
 	c.fillText("Game Over", w / 2, h / 2);	
 }
 
+function randomColor()
+{
+	var ranColor = 
+	'rgb(' + Math.floor(Math.random() * 256) +
+	','    + Math.floor(Math.random() * 256) +
+	','    + Math.floor(Math.random() * 256) + ')';
+	
+	return ranColor;
+}
+
 function init()
 {
 	// place ball in middle of canvas
 	xPos = w / 2;
 	yPos = h / 2;
+	
+	rColor = randomColor();
 	// call the draw function
 	draw();
 }
@@ -85,16 +100,21 @@ function draw()
 	c.clearRect(0, 0, w, h);
 	
 	// call the drawBall() function
-	drawBall(xPos, yPos, 10, "Red");
+	drawBall(xPos, yPos, 10, ballColor);
 	
 	// call the drawPaddle() function
-	drawPaddle(paddleX, paddleY, 150, 15, "black");
+	drawPaddle(paddleX, paddleY, paddleW, 15, rColor);
 	
 	// draw text on canvas
-	c.font = "50px Arial";
+	c.font = "28px Arial";
 	c.fillStyle = "black";
-	c.fillText("Score:  " + score, 10, 50);
+	c.fillText("Score:  " + score, 100, 50);
 	
+	c.beginPath();
+	c.fillStyle = "black";
+	c.font = "28px arial";
+	c.textAlign = "center";
+	c.fillText("Speed: " + Math.ceil(Math.abs(xSpeed)), w - 100, 50)
 	// update the location of square
 	update();
 	// Game loop
@@ -111,8 +131,34 @@ function update()
 	if (yPos + 10 > h)
 	{
 		gameOver();
-		
-		
+		if (score <= 10)
+		{
+			c.font = "20px Arial";
+			c.fillStyle = "blue";
+			c.textAlign = "center";
+			c.fillText("Skill level: Beginner", w / 2, h / 2 + 30);
+		}
+		else if (score > 10 && score <= 15)
+		{
+			c.font = "20px Arial";
+			c.fillStyle = "Green";
+			c.textAlign = "center";
+			c.fillText("Skill level: Intermedite", w / 2, h / 2 + 30);
+		}
+		else if (score > 15 && score <= 20)
+		{
+			c.font = "20px Arial";
+			c.fillStyle = "gold";
+			c.textAlign = "center";
+			c.fillText("Skill level: Expert", w / 2, h / 2 + 30);
+		}
+		else if (score > 20)
+		{
+			c.font = "20px Arial";
+			c.fillStyle = randomColor();
+			c.textAlign = "center";
+			c.fillText("Skill level: MASTER", w / 2, h / 2 + 30);
+		}
 	}
 	// bounce off the top wall
 	else if (yPos < 0)
@@ -136,11 +182,28 @@ function update()
 	}
 	
 	// collision detection goes here....
-	if ( xPos + 10 > paddleX && xPos - 10 < paddleX + 150 && yPos + 10 > paddleY && yPos - 10 < paddleY + 15)
+	if ( xPos + 10 > paddleX && 
+	xPos - 10 < paddleX + paddleW && 
+	yPos + 10 > paddleY && 
+	yPos - 10 < paddleY + 15)
 	{
+		yPos = paddleY - 12;
 		ySpeed = -ySpeed;
 		score++;
+		if (score % 5 === 0)
+		{
+			xSpeed = xSpeed * 1.25;
+			ySpeed = ySpeed * 1.25;
+			c.fillText("Speed: " + xSpeed, w - 100, 0, 100);
+		}
+		if (score % 10 === 0)
+		{
+			paddleW = paddleW - 15;
+		}
+		ballColor = randomColor();
+		
 	}
+	
 }
 
 init();
