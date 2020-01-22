@@ -66,6 +66,7 @@ function drawHeads(x, y, color)
 	c.lineWidth = "8px";
 	c.arc(x, y, 100, 0, 2*Math.PI, false);
 	c.fill();
+	c.stroke();
 	// draw a black "H" on the coin
 	c.fillStyle = "black";
 	c.font = "50px Arial";
@@ -89,6 +90,7 @@ function drawTails(x, y, color)
 	c.lineWidth = "8px";
 	c.arc(x, y, 100, 0, 2*Math.PI, false);
 	c.fill();
+	c.stroke();
 	// draw a black "T" on the coin
 	c.fillStyle = "black";
 	c.font = "50px Arial";
