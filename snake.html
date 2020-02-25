@@ -20,13 +20,11 @@
   </style>
 </head>
 <body>
-<canvas id="game"></canvas>
+<canvas width="400" height="400" id="game"></canvas>
 <script>
 var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
 
-canvas.width = window.innerWidth - 10;
-canvas.height = window.innerHeight - 10;
 
 var grid = 16;
 var count = 0;
