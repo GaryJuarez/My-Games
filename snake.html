@@ -26,7 +26,7 @@ var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
 
 
-var grid = 10;
+var grid = 16;
 var count = 0;
   
 var snake = {
@@ -34,7 +34,7 @@ var snake = {
   y: 160,
   
   // snake velocity. moves one grid length every frame in either the x or y direction
-  dx: grid,
+  dx: grid - 6,
   dy: 0,
   
   // keep track of all grids the snake body occupies
